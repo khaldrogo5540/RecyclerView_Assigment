@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">RecyclerView</string>
     <string name="email_name">email name</string>
+    <string name="placeholder_text">placeholder text</string>
 </resources>

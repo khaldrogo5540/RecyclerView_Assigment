@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recyclerview.R;
 import com.example.recyclerview.model.Email;
+import com.example.recyclerview.util.EmailClickListener;
 
 import java.util.List;
 
@@ -23,6 +24,18 @@ public class EmailAdapter extends RecyclerView.Adapter<EmailViewHolder> {
     //data as a list of items
     public EmailAdapter(List<Email> emails) {
         emailList = emails;
+    }
+
+    //what if we wanted to set a new list to our adapter?
+    public void setEmailList(List<Email> emails) {
+        emailList = emails;
+        //let your recyclerview refresh itself once the list has been updated
+        notifyDataSetChanged();
+    }
+
+    public void setEmail(int position, Email email) {
+        emailList.set(position, email);
+        notifyItemChanged(position);
     }
 
     @NonNull
@@ -43,7 +56,12 @@ public class EmailAdapter extends RecyclerView.Adapter<EmailViewHolder> {
 //                LayoutInflater.from(context).inflate(R.layout.email_item, parent, false)
 //        );
 
-        return new EmailViewHolder(myView);
+        //STEP 5 FOR ALLOWING YOUR ITEMS TO BE CLICKED
+        //we can pass our listener here and set it to our Viewholder
+        //but..how do?
+        EmailViewHolder emailViewHolder = new EmailViewHolder(myView);
+        emailViewHolder.setListener((EmailClickListener) context);
+        return emailViewHolder;
     }
 
     @Override
