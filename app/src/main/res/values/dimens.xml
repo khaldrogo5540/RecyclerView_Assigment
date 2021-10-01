@@ -3,4 +3,5 @@
     <dimen name="image_width">120dp</dimen>
     <dimen name="image_height">120dp</dimen>
     <dimen name="stnd_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

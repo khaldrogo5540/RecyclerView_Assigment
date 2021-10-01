@@ -12,6 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RecyclerView">
         <activity
+            android:name=".SecondActivity"
+            android:label= "Email"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.example.android.recyclerview.MainActivity" />
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

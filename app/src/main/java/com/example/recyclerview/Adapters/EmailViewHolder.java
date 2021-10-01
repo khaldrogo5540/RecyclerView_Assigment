@@ -63,6 +63,8 @@ class EmailViewHolder extends RecyclerView.ViewHolder implements View.OnClickLis
     //override the onClick method
     @Override
     public void onClick(View v) {
+
         mListener.onEmailClicked(v, getAdapterPosition());
+
     }
 }

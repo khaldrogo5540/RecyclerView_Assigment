@@ -1,11 +1,15 @@
 package com.example.recyclerview;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
+import android.webkit.ServiceWorkerController;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,12 +27,13 @@ public class MainActivity extends AppCompatActivity implements EmailClickListene
     private RecyclerView mEmailRv;
     private List<Email> mEmailList;
     private TextView mMyTextView;
+    public static final int TEXT_REQUEST = 1;
+    private EmailAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initializeViews();
         getData();
         setUpRecyclerView();
@@ -49,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements EmailClickListene
         for (int i=0; i<100; i++) {
             Email currentEmail = new Email(
                     "name " + i,
-                    "subject " + i + "i",
+                    "subject " + i,
                     "body " + i,
                     "https://purepng.com/public/uploads/large/purepng.com-mail-iconsymbolsiconsapple-iosiosios-8-iconsios-8-721522596075clftr.png"
             );
@@ -60,8 +65,8 @@ public class MainActivity extends AppCompatActivity implements EmailClickListene
 
     public void setUpRecyclerView() {
         //STEP 6: Initialize our adapter and set it to our recyclerview
-        EmailAdapter myAdapter = new EmailAdapter(mEmailList);
-        mEmailRv.setAdapter(myAdapter);
+        mAdapter = new EmailAdapter(mEmailList);
+        mEmailRv.setAdapter(mAdapter);
 
         //STEP 7: Set a linear layout manager to our recyclerview
         mEmailRv.setLayoutManager(
@@ -82,5 +87,42 @@ public class MainActivity extends AppCompatActivity implements EmailClickListene
                 "We are now displaying " + mEmailList.get(position).getName(),
                 Toast.LENGTH_LONG).show();
         mMyTextView.setText("We are now displaying " + mEmailList.get(position).getName());
+
+        Email clickedEmail = mEmailList.get(position);
+
+
+        Intent intent = new Intent(this, SecondActivity.class);
+        intent.putExtra(String.valueOf(SecondActivity.SELECTED_EMAIL_POSITION), position);
+        intent.putExtra(SecondActivity.SELECTED_EMAIL_OBJECT, clickedEmail);
+        startActivityForResult(intent,TEXT_REQUEST);
+
+//        intent.putExtra(SecondActivity.SELECTED_EMAIL_NAME, clickedEmail.getName());
+//        intent.putExtra(SecondActivity.SELECTED_EMAIL_BODY, clickedEmail.getBody());
+//        intent.putExtra(SecondActivity.SELECTED_EMAIL_SUBJECT, clickedEmail.getSubject());
+//        intent.putExtra(SecondActivity.SELECTED_EMAIL_URL, clickedEmail.getImageUrl());
+
+
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (requestCode == TEXT_REQUEST)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                if (data != null)
+                {
+                    Email retrievedEmail = data.getParcelableExtra(SecondActivity.SELECTED_EMAIL_OBJECT);
+                    int position = data.getIntExtra(SecondActivity.SELECTED_EMAIL_POSITION, 0);
+                    mAdapter.setEmail(position, retrievedEmail);
+                }
+            }
+        }
+
     }
 }
