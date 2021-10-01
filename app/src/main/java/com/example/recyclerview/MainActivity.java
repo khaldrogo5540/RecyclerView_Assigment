@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements EmailClickListene
         intent.putExtra(SecondActivity.SELECTED_EMAIL_OBJECT, clickedEmail);
         startActivityForResult(intent,TEXT_REQUEST);
 
+        //One way to do it in case we do not use parcelable
 //        intent.putExtra(SecondActivity.SELECTED_EMAIL_NAME, clickedEmail.getName());
 //        intent.putExtra(SecondActivity.SELECTED_EMAIL_BODY, clickedEmail.getBody());
 //        intent.putExtra(SecondActivity.SELECTED_EMAIL_SUBJECT, clickedEmail.getSubject());

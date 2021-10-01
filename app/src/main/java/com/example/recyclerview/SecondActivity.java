@@ -14,7 +14,8 @@ import com.bumptech.glide.Glide;
 import com.example.recyclerview.model.Email;
 
 public class SecondActivity extends AppCompatActivity {
-//    public static String SELECTED_EMAIL_NAME = "SELECTED_EMAIL_NAME";
+    //One way to do it in case we do not use parcelable//
+    // public static String SELECTED_EMAIL_NAME = "SELECTED_EMAIL_NAME";
 //    public static String SELECTED_EMAIL_BODY = "SELECTED_EMAIL_BODY";
 //    public static String SELECTED_EMAIL_SUBJECT = "SELECTED_EMAIL_SUBJECT";
 //    public static String SELECTED_EMAIL_URL = "SELECTED_EMAIL_URL";
@@ -55,6 +56,7 @@ public class SecondActivity extends AppCompatActivity {
             mEmail = intent.getParcelableExtra(SELECTED_EMAIL_OBJECT);
             mPosition = intent.getIntExtra(SELECTED_EMAIL_POSITION, 0);
 
+//            One way to do it if we do not use parcelable
 //            String emailName = intent.getStringExtra(SELECTED_EMAIL_NAME);
 //            String emailBody = intent.getStringExtra(SELECTED_EMAIL_BODY);
 //            String emailSubject = intent.getStringExtra(SELECTED_EMAIL_SUBJECT);
